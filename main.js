@@ -135,6 +135,8 @@ function renderStudents(list = students){
 
     updateStudentSelect(list);
     renderChart(list);
+renderClassStats(list);
+
 }
 
 // -------------------------
@@ -203,6 +205,49 @@ function renderChart(list = students){
         options:{ scales:{ y:{ beginAtZero:true, max:100 }}}
     });
 }
+// -------------------------
+// CLASS STATISTICS
+// -------------------------
+function renderClassStats(list) {
+    const statsBox = document.getElementById("classStats");
+    const totalEl = document.getElementById("statTotal");
+    const attendanceEl = document.getElementById("statAttendance");
+    const marksEl = document.getElementById("statMarks");
+
+    if (list.length === 0) {
+        statsBox.classList.add("hidden");
+        return;
+    }
+
+    statsBox.classList.remove("hidden");
+
+    // Total Students
+    totalEl.textContent = list.length;
+
+    // Average Attendance
+    let totalAttendancePercent = 0;
+    list.forEach(s => {
+        const total = s.present + s.absent;
+        const percent = total === 0 ? 0 : (s.present / total) * 100;
+        totalAttendancePercent += percent;
+    });
+    attendanceEl.textContent = (totalAttendancePercent / list.length).toFixed(1) + "%";
+
+    // Average Marks
+    let totalMarks = 0;
+    let countMarks = 0;
+
+    list.forEach(s => {
+        if (s.marks) {
+            const avg = (s.marks.maths + s.marks.science + s.marks.english) / 3;
+            totalMarks += avg;
+            countMarks++;
+        }
+    });
+
+    marksEl.textContent = countMarks === 0 ? "No Data" : (totalMarks / countMarks).toFixed(1);
+}
+
 
 // -------------------------
 // CLASS FILTER
