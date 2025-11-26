@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management System</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 p-5">
+
+<!-- Header -->
+<header class="bg-white shadow p-4 mb-6 flex justify-between items-center">
+  <h1 class="text-3xl font-bold">Student Management System</h1>
+  <button id="downloadBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Download Report</button>
+</header>
+
+<!-- Navbar -->
+<nav class="bg-white shadow rounded mb-6 p-2 flex gap-4 justify-center">
+  <button onclick="showSection('addStudent')" class="px-4 py-2 bg-blue-500 text-white rounded">Add Student</button>
+  <button onclick="showSection('addMarks')" class="px-4 py-2 bg-green-500 text-white rounded">Add Marks</button>
+  <button onclick="showSection('chart')" class="px-4 py-2 bg-purple-500 text-white rounded">Performance Chart</button>
+  <button onclick="showSection('search')" class="px-4 py-2 bg-yellow-500 text-white rounded">Search Student</button>
+  <button onclick="showSection('studentListSection')" class="px-4 py-2 bg-red-500 text-white rounded">Students List</button>
+</nav>
+
+<!-- Dark Mode Toggle -->
+<div class="text-center mb-4">
+  <button id="toggleDark" class="bg-gray-700 text-white px-3 py-1 rounded">
+    Dark Mode
+  </button>
+</div>
+
+<!-- Alert Box -->
+<div class="hidden" id="alertBox">
+  <div class="bg-green-500 text-white p-3 rounded mb-3">
+    Student added successfully!
+  </div>
+</div>
+
+<!-- Add Student Section -->
+<div id="addStudent" class="section bg-white p-4 rounded shadow mb-6">
+  <h2 class="text-xl font-semibold mb-2">Add Student</h2>
+  <form id="studentForm" class="space-y-2">
+    <input type="text" id="name" placeholder="Name" class="border p-2 w-full rounded">
+    <input type="text" id="roll" placeholder="Roll No" class="border p-2 w-full rounded">
+    <input type="text" id="class" placeholder="Class" class="border p-2 w-full rounded">
+    <input type="file" id="photo" accept="image/*" class="border p-2 w-full rounded">
+    <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Add Student</button>
+  </form>
+</div>
+
+<!-- Add Marks Section -->
+<div id="addMarks" class="section bg-white p-4 rounded shadow mb-6 hidden">
+  <h2 class="text-xl font-semibold mb-2">Add Marks</h2>
+  <form id="marksForm" class="space-y-2">
+    <select id="studentSelect" class="border p-2 w-full rounded">
+      <option value="">Select Student</option>
+    </select>
+    <input type="number" id="maths" placeholder="Maths" class="border p-2 w-full rounded" min="0" max="100">
+    <input type="number" id="science" placeholder="Science" class="border p-2 w-full rounded" min="0" max="100">
+    <input type="number" id="english" placeholder="English" class="border p-2 w-full rounded" min="0" max="100">
+    <button type="submit" class="bg-green-500 text-white p-2 rounded w-full">Add Marks</button>
+  </form>
+</div>
+
+<!-- Performance Chart Section -->
+<div id="chart" class="section bg-white p-4 rounded shadow mb-6 hidden">
+  <h2 class="text-xl font-semibold mb-2">Class Performance Chart</h2>
+  <canvas id="performanceChart" height="100"></canvas>
+</div>
+
+<!-- Search Section -->
+<!-- Search Section -->
+<div id="search" class="section bg-white p-4 rounded shadow mb-6 hidden">
+  <h2 class="text-xl font-semibold mb-2">Search Student</h2>
+  <input type="text" id="searchStudent" placeholder="Search by name or roll" class="border p-2 w-full rounded mb-4">
+
+  <!-- Search results will appear here -->
+  <div id="searchResults"></div>
+</div>
+
+<!-- Students List Section -->
+
+<!-- Students List Section -->
+<div id="studentListSection" class="section bg-white p-4 rounded shadow mb-6 hidden">
+  <select id="classFilter" class="p-2 border rounded mb-4">
+    <option>All Classes</option>
+    <option>Class 6</option>
+    <option>Class 7</option>
+    <option>Class 8</option>
+    <option>Class 9</option>
+    <option>Class 10</option>
+  </select>
+
+  <table class="w-full border">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border p-2">Roll No</th>
+        <th class="border p-2">Name</th>
+        <th class="border p-2">Class</th>
+        <th class="border p-2">Attendance</th>
+        <th class="border p-2">Action</th>
+      </tr>
+    </thead>
+    <tbody id="studentList"></tbody>
+  </table>
+</div>
+
+<!-- Student Card Example -->
+
+<!-- Footer -->
+<footer class="text-center mt-10 text-gray-600">
+  © 2025 Student Management System – Created by Muhammad
+</footer>
+
+<!-- Main JS -->
+<script src="js/main.js"></script>
+
+<!-- Dark Mode Script -->
+<script>
+  document.getElementById("toggleDark").onclick = () =>
+    document.body.classList.toggle("bg-gray-900");
+</script>
+
+<!-- Section Controller -->
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+  showSection('addStudent');
+
+</script>
+
+</body>
+</html>
